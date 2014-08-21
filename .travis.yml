@@ -1,5 +1,5 @@
 language: python
-python: 
+python:
   - "2.7"
 
 env:
@@ -18,12 +18,12 @@ env:
     # we end up starting ~200+ different workers. Seems that ~100 is the limit
     # before their website starts to lag heavily
     #
-    # Here's the bash if you need to update this. Be sure to maintain the 
+    # Here's the bash if you need to update this. Be sure to maintain the
     # lines that are currently commented out (these cannot run in Travis)
-    #   cd frameworks 
+    #   cd frameworks
     #   find . -type d -depth 2 | sed 's|./|    - "TESTDIR=|' | sed 's/$/"/g'
     #
-    #  
+    #
     - "TESTDIR=C/duda"
     - "TESTDIR=C/onion"
     - "TESTDIR=C#/aspnet"
@@ -43,6 +43,7 @@ env:
     - "TESTDIR=Dart/dart-redstone"
     - "TESTDIR=Dart/dart-start"
     - "TESTDIR=Dart/dart-stream"
+    - "TESTDIR=Elixir/PhoenixFramework"
     - "TESTDIR=Elixir/WeberFramework"
     - "TESTDIR=Erlang/cowboy"
     - "TESTDIR=Erlang/elli"
@@ -156,16 +157,16 @@ before_install:
   - time ./toolset/run-ci.py cisetup "$TESTDIR"
 
 addons:
-  postgresql: "9.3" 
+  postgresql: "9.3"
 
 install:
   # Install prerequisites
   - time ./toolset/run-ci.py prereq "$TESTDIR"
-  
-  # Install software for this framework  
+
+  # Install software for this framework
   - time ./toolset/run-ci.py install "$TESTDIR"
-   
-script: 
+
+script:
   # Pick one test in this directory and verify
   - time ./toolset/run-ci.py verify "$TESTDIR"
 
